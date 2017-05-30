@@ -6,5 +6,22 @@
   </head>
   <body>
 
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+  <div class="" id="Canvas">
+
+  </div>
+  <script type="text/javascript" src = "../jsHelper/gajs.js">
+
+  </script>
+
+  <script type="text/javascript">
+    var canvas = new Canvas("myCanvas");
+    var layer2D = new Layer2D(canvas);
+
+    var line = new Line(Point(0,0),Point(100,50));
+    layer2D.add(line);
+
+  </script>
   </body>
 </html>
