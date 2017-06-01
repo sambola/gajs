@@ -29,6 +29,10 @@ Layer2D.prototype.add = function (element) {
       this._2Dcontext.moveTo(element._startPoint.x,element._startPoint.y);
       this._2Dcontext.lineTo(element._endPoint.x,element._endPoint.y);
       this._2Dcontext.stroke();
+    }else if (element.tag == "circle") {
+      this._2Dcontext.beginPath();
+      this._2Dcontext.arc(element._centerPint.x,element._centerPint.y,element._radius, 0, 2 * Math.PI);
+      this._2Dcontext.stroke();
     }
   } catch (error) {
     console.log(error);
@@ -41,6 +45,12 @@ function Line(point_start,point_end) {
   this.tag ="line"
   this._startPoint = point_start
   this._endPoint = point_end
+}
+
+function Circle(point_center,radius) {
+  this.tag ="circle"
+  this._centerPint = point_center
+  this._radius = radius
 }
 
 
