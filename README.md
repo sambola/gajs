@@ -6,6 +6,7 @@ game development java script helper library all about html 5 canvas works
 ```
 
 var canvas = new Canvas("canvasid");
+
 var layer = new Layer();
 canvas.addLayer(layer);
 
