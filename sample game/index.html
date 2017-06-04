@@ -20,17 +20,14 @@ Your browser does not support the HTML5 canvas tag.</canvas>
 
   <script type="text/javascript">
     var canvas = new Canvas("myCanvas");
-    var layer2D = new Layer2D(canvas);
     var layer = new Layer();
     canvas.addLayer(layer);
 
     var line = new Line(Point(0,0),Point(100,50));
-    layer2D.add(line);
     layer.add(line);
 
     //line._startPoint = Point(40,40);
 
-    layer2D.add(new Circle(Point(40,20),20));
     layer.add(new Circle(Point(40,20),20));
 
   </script>
