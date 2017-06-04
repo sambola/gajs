@@ -15,10 +15,8 @@ function Canvas(id) {
 
 }
 
-function Layer2D(canvas){
 Canvas.prototype.addLayer = function (layer) {
   try {
-    this._2Dcontext = canvas._canvas.getContext("2d");
 
     layer._2Dcontext = this._canvas.getContext("2d");
 
@@ -32,7 +30,6 @@ function Layer(){
    this._2Dcontext = null;
 }
 
-Layer2D.prototype.add = function (element) {
 
 
 Layer.prototype.add = function (element) {
