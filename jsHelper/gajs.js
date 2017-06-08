@@ -1,6 +1,7 @@
 function Canvas(id) {
   try {
     this._canvas = document.getElementById(id);
+    this._2Dcontext = this._canvas.getContext("2d");
     if(this._canvas.nodeName != 'CANVAS'){
       console.error("Invalide Canvas element Id pass :"+ id);
     }else{
@@ -15,24 +16,7 @@ function Canvas(id) {
 
 }
 
-Canvas.prototype.addLayer = function (layer) {
-  try {
-
-    layer._2Dcontext = this._canvas.getContext("2d");
-
-
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-function Layer(){
-   this._2Dcontext = null;
-}
-
-
-
-Layer.prototype.add = function (element) {
+Canvas.prototype.add = function (element) {
   try {
     if (element.tag == "line") {
       this._2Dcontext.moveTo(element._startPoint.x,element._startPoint.y);
@@ -42,6 +26,9 @@ Layer.prototype.add = function (element) {
       this._2Dcontext.beginPath();
       this._2Dcontext.arc(element._centerPint.x,element._centerPint.y,element._radius, 0, 2 * Math.PI);
       this._2Dcontext.stroke();
+      if(element.emptyContext != null){
+        emptyContextConfig(this._2Dcontext,element.emptyContext);
+      }
     }
     element._2Dcontext = this._2Dcontext;
   } catch (error) {
@@ -50,26 +37,59 @@ Layer.prototype.add = function (element) {
 
 
 };
-
+//line
 function Line(point_start,point_end) {
   this.tag ="line"
-  this._2Dcontext = null;
   this._startPoint = point_start
   this._endPoint = point_end
-
-
 }
 
-
-
-
+//end circle
+//circle
 function Circle(point_center,radius) {
-  this.tag ="circle"
-  this._centerPint = point_center
-  this._radius = radius
+  this.tag ="circle";
+  this.centerPint = point_center;
+  this.radius = radius;
+  this.emptyContext = new Object();
+
+
 }
 
+Object.defineProperty(Circle.prototype, "centerPint", {
+    get : function(){ return this.centerPint;},
+    set: function(center){   this._centerPint = center;}
+});
+Object.defineProperty(Circle.prototype, "radius", {
+    get : function(){ return this.radius;},
+    set: function(radius){   this._radius = radius;}
+});
+Object.defineProperty(Circle.prototype, "fillColor", {
+    get : function(){ return this.centerPint;},
+    set: function(color){
+      console.log(this.name);
+        this._fillColor = color;
+        if(this._2Dcontext == null) {
+          this.emptyContext.fillColor = color;
+        }else{
+          this._2Dcontext.fillStyle = color;
+          this._2Dcontext.fill();
+        }
+
+      }
+});
+//end circle
 
 function Point(_x,_y) {
   return {x:_x,y:_y}
+}
+//emptyContext config cuntion
+function emptyContextConfig(context,emptyContext){
+
+  if(emptyContext.fillColor != null){
+
+      context.fillStyle = emptyContext.fillColor
+      context.fill();
+
+  }
+
 }
